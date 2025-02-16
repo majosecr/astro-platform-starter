@@ -12,5 +12,10 @@ export default defineConfig({
         })
     ],
     output: 'hybrid',
-    adapter: netlify()
+    adapter: netlify(),
+    vite: {
+        ssr: {
+            external: ['jsonwebtoken'],
+        },
+    },
 });

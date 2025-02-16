@@ -1,37 +1,29 @@
 ---
-// Your existing layout code
+// Tus imports existentes
 ---
 
+<!doctype html>
 <html lang="en">
-  <head>
-    <!-- Your existing head content -->
-  </head>
-  <body>
-    <header>
-      <!-- Your existing header content -->
-      <button id="logout-button" style="display: none;">Logout</button>
-    </header>
-    <main>
-      <slot />
-    </main>
-    <footer>
-      <!-- Your existing footer content -->
-    </footer>
-
-    <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on('init', user => {
-        const logoutButton = document.getElementById('logout-button');
-        if (user) {
-          logoutButton.style.display = 'block';
-          logoutButton.onclick = () => {
-            window.netlifyIdentity.logout();
-          };
-        } else {
-          logoutButton.style.display = 'none';
-        }
-      });
-    }
-    </script>
-  </body>
+    <head>
+        <!-- Tus meta tags existentes -->
+        
+        <!-- Añade este script de Netlify Identity -->
+        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    </head>
+    <body>
+        <!-- Tu contenido existente -->
+        
+        <!-- Añade este script al final del body -->
+        <script>
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.on("init", user => {
+                    if (!user) {
+                        window.netlifyIdentity.on("login", () => {
+                            document.location.href = "/admin/";
+                        });
+                    }
+                });
+            }
+        </script>
+    </body>
 </html>
