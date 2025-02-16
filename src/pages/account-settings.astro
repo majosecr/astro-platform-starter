@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Account Settings">
+  <h1>Account Settings</h1>
+  <button id="change-password">Change Password</button>
+  <button id="delete-account">Delete Account</button>
+</Layout>
+
+<script>
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', user => {
+    if (!user) {
+      window.location.href = '/';
+    } else {
+      document.getElementById('change-password').addEventListener('click', () => {
+        window.netlifyIdentity.open('password');
+      });
+
+      document.getElementById('delete-account').addEventListener('click', () => {
+        if (confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+          // Implement account deletion logic here
+          console.log('Account deletion requested');
+        }
+      });
+    }
+  });
+}
+</script>

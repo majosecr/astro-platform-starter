@@ -1,27 +1,19 @@
 ---
-// You can add any necessary imports or logic here
+// Existing imports
 ---
 
 <div>
   <div data-netlify-identity-button>Login with Netlify Identity</div>
 </div>
 
-<style>
-  div {
-    display: inline-block;
-  }
-  /* You can add more styles here to customize the appearance of the button */
-</style>
-
 <script>
-  // This script will run on the client side
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on("init", user => {
+    if (!user) {
+      window.netlifyIdentity.on("login", () => {
+        document.location.href = "/profile/";
+      });
+    }
+  });
+}
 </script>

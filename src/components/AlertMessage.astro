@@ -1,0 +1,23 @@
+---
+const { type, message } = Astro.props;
+---
+
+<div class={`alert alert-${type}`}>
+  {message}
+</div>
+
+<style>
+  .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  .alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+</style>

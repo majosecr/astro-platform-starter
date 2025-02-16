@@ -1,0 +1,26 @@
+---
+// Add any necessary imports
+---
+
+<div id="user-profile">
+  <!-- Profile content will be populated by JavaScript -->
+</div>
+
+<script>
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', user => {
+    if (user) {
+      const profileDiv = document.getElementById('user-profile');
+      profileDiv.innerHTML = `
+        <h2>Welcome, ${user.user_metadata.full_name || user.email}</h2>
+        <p>Email: ${user.email}</p>
+        <button onclick="window.netlifyIdentity.open('user')">Edit Profile</button>
+        <button id="logout-button">Logout</button>
+      `;
+      document.getElementById('logout-button').onclick = () => {
+        window.netlifyIdentity.logout();
+      };
+    }
+  });
+}
+</script>

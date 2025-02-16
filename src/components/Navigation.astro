@@ -1,0 +1,32 @@
+---
+// Existing imports
+---
+
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/contact">Contact</a></li>
+    <li id="profile-link" style="display: none;"><a href="/profile">Profile</a></li>
+    <li><button id="logout-button" style="display: none;">Logout</button></li>
+  </ul>
+</nav>
+
+<script>
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('init', user => {
+    const logoutButton = document.getElementById('logout-button');
+    const profileLink = document.getElementById('profile-link');
+    if (user) {
+      logoutButton.style.display = 'block';
+      profileLink.style.display = 'block';
+      logoutButton.onclick = () => {
+        window.netlifyIdentity.logout();
+      };
+    } else {
+      logoutButton.style.display = 'none';
+      profileLink.style.display = 'none';
+    }
+  });
+}
+</script>
