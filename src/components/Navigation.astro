@@ -1,15 +1,25 @@
 ---
-// Existing imports
+import LoginButton from './LoginButton.astro';
 ---
 
-<nav>
-  <ul>
+<nav class="flex items-center justify-between py-4">
+  <ul class="flex gap-4 items-center">
     <li><a href="/">Home</a></li>
+    <li><a href="/revalidation">Revalidation</a></li>
+    <li><a href="/image-cdn">Image CDN</a></li>
+    <li><a href="/edge-function">Edge Function</a></li>
+    <li><a href="/blobs">Blobs</a></li>
     <li><a href="/about">About</a></li>
     <li><a href="/contact">Contact</a></li>
     <li id="profile-link" style="display: none;"><a href="/profile">Profile</a></li>
-    <li><button id="logout-button" style="display: none;">Logout</button></li>
   </ul>
+  
+  <div class="flex items-center gap-4">
+    <LoginButton />
+    <button id="logout-button" style="display: none;" class="text-white hover:underline">
+      Logout
+    </button>
+  </div>
 </nav>
 
 <script>
@@ -17,16 +27,87 @@ if (window.netlifyIdentity) {
   window.netlifyIdentity.on('init', user => {
     const logoutButton = document.getElementById('logout-button');
     const profileLink = document.getElementById('profile-link');
+    const loginButton = document.querySelector('[data-netlify-identity-button]');
+
     if (user) {
       logoutButton.style.display = 'block';
       profileLink.style.display = 'block';
+      if (loginButton) loginButton.style.display = 'none';
+      
       logoutButton.onclick = () => {
         window.netlifyIdentity.logout();
       };
     } else {
       logoutButton.style.display = 'none';
       profileLink.style.display = 'none';
+      if (loginButton) loginButton.style.display = 'block';
     }
+  });
+
+  // Manejar el evento de logout
+  window.netlifyIdentity.on('logout', () => {
+    window.location.href = '/';
   });
 }
 </script>
+
+<style>
+  nav {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+  }
+
+  button:hover {
+    text-decoration: underline;
+  }
+
+  #logout-button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+  }
+
+  #logout-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .items-center {
+    align-items: center;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+
+  .gap-4 {
+    gap: 1rem;
+  }
+</style>

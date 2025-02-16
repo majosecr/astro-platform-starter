@@ -1,0 +1,44 @@
+---
+// No props needed for this component
+---
+
+<div id="notification" class="notification hidden"></div>
+
+<style>
+  .notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .notification.success { background-color: #28a745; }
+  .notification.error { background-color: #dc3545; }
+  .hidden { opacity: 0; }
+</style>
+
+<script>
+function showNotification(message, type = 'success') {
+  const notification = document.getElementById('notification');
+  notification.textContent = message;
+  notification.classList.remove('hidden', 'success', 'error');
+  notification.classList.add(type);
+  
+  setTimeout(() => {
+    notification.classList.add('hidden');
+  }, 3000);
+}
+
+// Make showNotification available globally
+window.showNotification = showNotification;
+
+// Example usage with Netlify Identity events
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on('login', () => showNotification('Logged in successfully'));
+  window.netlifyIdentity.on('logout', () => showNotification('Logged out successfully'));
+  window.netlifyIdentity.on('error', err => showNotification(err.message, 'error'));
+}
+</script>
