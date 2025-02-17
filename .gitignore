@@ -20,5 +20,25 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
-# Local Netlify folder
-.netlify
+# Firebase
+.firebase/
+firebase-debug.log*
+.runtimeconfig.json
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Optional: Cache directories
+.cache/
+.mf/
+.rollup.cache/
+tsconfig.tsbuildinfo
+
+# Astro output
+.astro
